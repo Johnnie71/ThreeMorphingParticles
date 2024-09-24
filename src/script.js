@@ -137,8 +137,8 @@ gltfLoader.load('./models.glb', (gltf) => {
     particles.geometry.setAttribute('aSize', new THREE.BufferAttribute(sizesArray, 1))
 
     // Material
-    particles.colorA = '#ff7300'
-    particles.colorB = "#0091ff"
+    particles.colorA = '#ff9500'
+    particles.colorB = "#ff0000"
     particles.material = new THREE.ShaderMaterial({
         vertexShader: particlesVertexShader,
         fragmentShader: particlesFragmentShader,
@@ -176,10 +176,19 @@ gltfLoader.load('./models.glb', (gltf) => {
         particles.index = index
     }
 
-    particles.morph0 = () => { particles.morph(0) }
-    particles.morph1 = () => { particles.morph(1) }
-    particles.morph2 = () => { particles.morph(2) }
-    particles.morph3 = () => { particles.morph(3) }
+    // Function to cycle through morphs using particles.index
+    const cycleMorphs = () => {
+        const nextIndex = (particles.index + 1) % 4; // Cycle through 0 to 3
+        particles.morph(nextIndex);  // Use the next index for morphing
+    };
+
+    // Set interval to change morph every 4 seconds
+    setInterval(cycleMorphs, 4000);
+
+    // particles.morph0 = () => { particles.morph(0) }
+    // particles.morph1 = () => { particles.morph(1) }
+    // particles.morph2 = () => { particles.morph(2) }
+    // particles.morph3 = () => { particles.morph(3) }
 
     // Tweaks
     gui.addColor(particles, 'colorA')
@@ -197,10 +206,10 @@ gltfLoader.load('./models.glb', (gltf) => {
         .name('uProgress')
         .listen()
 
-    gui.add(particles, 'morph0')
-    gui.add(particles, 'morph1')
-    gui.add(particles, 'morph2')
-    gui.add(particles, 'morph3')
+    // gui.add(particles, 'morph0')
+    // gui.add(particles, 'morph1')
+    // gui.add(particles, 'morph2')
+    // gui.add(particles, 'morph3')
 })
 
 /**
