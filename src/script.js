@@ -128,6 +128,7 @@ gltfLoader.load('./models.glb', (gltf) => {
     // Geometry
     particles.geometry = new THREE.BufferGeometry()
     particles.geometry.setAttribute('position', particles.positions[1])
+    particles.geometry.setAttribute('aPositionTarget', particles.positions[3])
 
     // Material
     particles.material = new THREE.ShaderMaterial({
@@ -135,7 +136,7 @@ gltfLoader.load('./models.glb', (gltf) => {
         fragmentShader: particlesFragmentShader,
         uniforms:
         {
-            uSize: new THREE.Uniform(0.4),
+            uSize: new THREE.Uniform(0.2),
             uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio))
         },
         blending: THREE.AdditiveBlending,
