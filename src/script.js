@@ -93,11 +93,14 @@ gltfLoader.load('./models.glb', (gltf) => {
     
     particles = {}
 
-    const positions = gltf.scene.children.map((child) => {
-        return child.geometry.attributes.position
-    })
+    const positions = gltf.scene.children.map(child => child.geometry.attributes.position)
 
-    console.log(positions)
+    particles.maxCount = 0
+    for (const position of positions) {
+        if (position.count > particles.maxCount) {
+            particles.maxCount = position.count
+        }
+    }
 
     // Geometry
     particles.geometry = new THREE.SphereGeometry(3)
