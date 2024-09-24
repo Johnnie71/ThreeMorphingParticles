@@ -11,7 +11,7 @@ import particlesFragmentShader from './shaders/particles/fragment.glsl'
  * Base
  */
 // Debug
-const gui = new GUI({ width: 340 })
+const gui = new GUI({ width: 340 }) 
 const debugObject = {}
 
 // Canvas
@@ -97,7 +97,9 @@ particles.material = new THREE.ShaderMaterial({
     {
         uSize: new THREE.Uniform(0.4),
         uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio))
-    }
+    },
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
 })
 
 // Points
