@@ -137,7 +137,8 @@ gltfLoader.load('./models.glb', (gltf) => {
         uniforms:
         {
             uSize: new THREE.Uniform(0.2),
-            uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio))
+            uResolution: new THREE.Uniform(new THREE.Vector2(sizes.width * sizes.pixelRatio, sizes.height * sizes.pixelRatio)),
+            uProgress: new THREE.Uniform(0)
         },
         blending: THREE.AdditiveBlending,
         depthWrite: false
@@ -146,6 +147,9 @@ gltfLoader.load('./models.glb', (gltf) => {
     // Points
     particles.points = new THREE.Points(particles.geometry, particles.material)
     scene.add(particles.points)
+
+    // Tweaks
+    gui.add(particles.material.uniforms.uProgress, 'value').min(0).max(1).step(0.001).name('uProgress')
 })
 
 /**

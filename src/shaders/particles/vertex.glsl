@@ -1,12 +1,13 @@
 uniform vec2 uResolution;
 uniform float uSize;
+uniform float uProgress;
 
 attribute vec3 aPositionTarget;
 
 void main()
 {
     // Mix position
-    float progress = 0.5;
+    float progress = uProgress;
     vec3 mixedPosition = mix(position, aPositionTarget, progress);
 
     // Final position
