@@ -11,8 +11,8 @@ varying vec3 vColor;
 void main()
 {
     // Mix position
-    float noiseOrigin = simplexNoise3d(position);
-    float noiseTarget = simplexNoise3d(aPositionTarget);
+    float noiseOrigin = simplexNoise3d(position * 0.2);
+    float noiseTarget = simplexNoise3d(aPositionTarget * 0.2);
     float noise = mix(noiseOrigin, noiseTarget, uProgress);
     noise = smoothstep(-1.0, 1.0, noise);
 
