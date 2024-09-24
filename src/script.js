@@ -102,9 +102,32 @@ gltfLoader.load('./models.glb', (gltf) => {
         }
     }
 
+    particles.positions = []
+    for (const position of positions) {
+        const originalArray = position.array
+        const newArray = new Float32Array(particles.maxCount * 3)
+
+        for (let i = 0; i < particles.maxCount; i++) {
+            const i3 = i * 3
+            
+            if (i3 < originalArray.length) {
+                newArray[i3 + 0] = originalArray[i3 + 0]
+                newArray[i3 + 1] = originalArray[i3 + 1]
+                newArray[i3 + 2] = originalArray[i3 + 2]
+            } else {
+                const randomIndex = Math.floor(position.count * Math.random()) * 3
+                newArray[i3 + 0] = originalArray[randomIndex + 0]
+                newArray[i3 + 1] = originalArray[randomIndex + 1]
+                newArray[i3 + 2] = originalArray[randomIndex + 2]
+            }
+        }
+
+        particles.positions.push(new THREE.Float32BufferAttribute(newArray, 3))
+    }
+
     // Geometry
-    particles.geometry = new THREE.SphereGeometry(3)
-    particles.geometry.setIndex(null)
+    particles.geometry = new THREE.BufferGeometry()
+    particles.geometry.setAttribute('position', particles.positions[1])
 
     // Material
     particles.material = new THREE.ShaderMaterial({
